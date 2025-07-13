@@ -91,11 +91,17 @@ export default function SignUpPage() {
 
       // Create account
       await signUp({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         businessName: formData.businessName,
         password: formData.password,
+        title: "",
+        location: "",
+        yearsInBusiness: 0,
+        primaryIndustry: "",
+        description: "",
+        partnerships: [],
+        industries: [],
       })
 
       setSuccess(true)

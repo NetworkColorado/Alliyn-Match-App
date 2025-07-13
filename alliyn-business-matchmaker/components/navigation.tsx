@@ -14,10 +14,10 @@ export default function Navigation() {
 
   const navItems = [
     {
-      href: "/",
+      href: "/matchmaker",
       icon: Heart,
       label: "Match",
-      isActive: pathname === "/",
+      isActive: pathname === "/matchmaker",
     },
     {
       href: "/messages",
