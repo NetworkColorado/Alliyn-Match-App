@@ -51,9 +51,8 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User>({
+  const defaultUser: User = {
     id: "1",
-    // Add email field to user
     email: "john@innovatetech.com",
     accountType: "free",
     dailySwipes: 0,
@@ -75,20 +74,31 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
       companyLogo: "/placeholder.svg?height=100&width=100",
       isActive: true,
       email: "john@innovatetech.com",
-      selectedTheme: "default", // Add default theme
+      selectedTheme: "default",
     },
-    createdAt: new Date().toISOString(),
-  })
+    createdAt: "",
+  };
+  const [user, setUser] = useState<User>(defaultUser);
+
+  useEffect(() => {
+    setUser((prev) => ({
+      ...prev,
+      createdAt: new Date().toISOString(),
+    }));
+  }, []);
 
   // --- track swiped profile ids (persisted) --------------------
-  const [swipedProfiles, setSwipedProfiles] = useState<number[]>(() => {
-    if (typeof window === "undefined") return []
-    try {
-      return JSON.parse(localStorage.getItem("swipedProfiles") ?? "[]")
-    } catch {
-      return []
+  const [swipedProfiles, setSwipedProfiles] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        setSwipedProfiles(JSON.parse(localStorage.getItem("swipedProfiles") ?? "[]"));
+      } catch {
+        setSwipedProfiles([]);
+      }
     }
-  })
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("swipedProfiles", JSON.stringify(swipedProfiles))

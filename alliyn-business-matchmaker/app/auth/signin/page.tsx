@@ -31,7 +31,7 @@ export default function SignInPage() {
 
     const success = await signIn(formData.email, formData.password)
     if (success) {
-      window.location.href = "/"
+      window.location.href = "/matchmaker"
     } else {
       setError("Invalid email or password")
     }

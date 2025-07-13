@@ -16,7 +16,7 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
       {/* UserProvider must come **before** AuthProvider so AuthProvider can safely call useUser() */}
       <UserProvider>
         <AuthProvider>
